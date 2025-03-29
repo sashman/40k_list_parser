@@ -1,6 +1,6 @@
 {
   "name": "40k-list-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A complete Node.js project template using TypeScript and following general best practices.",
   "keywords": [
     "typescript"
