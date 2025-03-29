@@ -1,10 +1,9 @@
 {
-  "name": "typescript-template",
+  "name": "40k-list-parser",
   "version": "1.0.7",
   "description": "A complete Node.js project template using TypeScript and following general best practices.",
   "keywords": [
-    "typescript",
-    "template"
+    "typescript",    
   ],
   "author": {
     "name": "Chris Wells",
