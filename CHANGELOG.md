@@ -1,3 +1,7 @@
+## [0.0.4](https://github.com/sashman/40k_list_parser/compare/v0.0.3...v0.0.4) (2025-03-29)
+
+
+
 ## [0.0.3](https://github.com/sashman/40k_list_parser/compare/v0.0.2...v0.0.3) (2025-03-29)
 
 

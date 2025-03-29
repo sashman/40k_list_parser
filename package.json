@@ -1,6 +1,6 @@
 {
   "name": "40k-list-parser",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A parser for Warhammer 40k army lists",
   "keywords": [
     "typescript"
