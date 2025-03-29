@@ -19,7 +19,7 @@
     "dist/"
   ],
   "scripts": {
-    "build": "npm run clean && npm run lint && tsc && cp -r ./src/grammar ./dist/grammar",
+    "build": "npm run clean && npm run lint && tsc && copyfiles ./src/grammar ./dist/grammar",
     "changelog": "conventional-changelog -p angular -u",
     "changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "clean": "node -e \"var { rmdirSync, existsSync } = require('fs'), path = require('path'); ['./.nyc_output', './coverage', './dist'].forEach(fPath => {if (existsSync(path.join(__dirname, fPath))) rmdirSync(path.join(__dirname, fPath), { recursive: true })}); process.exit(0);\"",
@@ -58,6 +58,7 @@
     }
   },
   "dependencies": {
+    "copyfiles": "^2.4.1",
     "peggy": "^4.2.0",
     "sitka": "^1.1.1"
   }
