@@ -19,7 +19,7 @@
     "dist/"
   ],
   "scripts": {
-    "copy-files": "copyfiles -u 1 ./src/grammar/*.peggy ./dist/grammar",
+    "copy-files": "copyfiles -u 1 ./src/grammar/*.peggy ./dist/",
     "build": "npm run clean && npm run lint && tsc && npm run copy-files",
     "changelog": "conventional-changelog -p angular -u",
     "changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
