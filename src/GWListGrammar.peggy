@@ -1,14 +1,15 @@
 start
-	= header:header NL section:section+ footer:footer? EOF {return {header, section, footer}}
+	= NL? header:header NL section:section+ footer:footer? EOF {return {header, section, footer}}
     
 header = 
-	list_name:([a-zA-Z0-9-() ]+) NL faction_name:([a-zA-Z0-9- ]+) NL detachments_name:([a-zA-Z0-9- ]+) NL battle_size:([a-zA-Z ]+) _ [(] points:([0-9]+) _ "Points)" {
+	list_name:([a-zA-Z0-9- ]+) _ [(]points:([0-9]+) " Points"[)] NL faction_name:([a-zA-Z0-9- ]+) NL detachments_name:([a-zA-Z0-9- ]+) NL battle_size:([a-zA-Z ]+) _ [(] battle_size_points:([0-9]+) _ "Points)" {
     	return {
         	list_name: list_name.join("").trim(),
             faction_name: faction_name.join("").trim(),
             detachments_name: detachments_name.join("").trim(),
             battle_size: battle_size.join("").trim(),
-            points: parseInt(points.join(""))
+            points: parseInt(points.join("")),
+            battle_size_points: parseInt(battle_size_points.join(""))
         }
     }
 

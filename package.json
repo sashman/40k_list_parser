@@ -60,6 +60,7 @@
     }
   },
   "dependencies": {
+    "peggy": "^4.2.0",
     "sitka": "^1.1.1"
   }
 }
