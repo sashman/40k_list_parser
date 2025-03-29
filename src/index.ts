@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const parser = peggy.generate(
-	fs.readFileSync(path.resolve(__dirname, './GWListGrammar.peggy'), 'utf8'),
+	fs.readFileSync(path.resolve(__dirname, './grammar/GWListGrammar.peggy'), 'utf8'),
 	{		
 		cache: true,
 		allowedStartRules: ['start'],
