@@ -3,7 +3,7 @@
   "version": "1.0.7",
   "description": "A complete Node.js project template using TypeScript and following general best practices.",
   "keywords": [
-    "typescript",    
+    "typescript"
   ],
   "author": {
     "name": "Chris Wells",
