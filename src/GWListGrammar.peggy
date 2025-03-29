@@ -1,71 +1,68 @@
-List
- = Units _ NewLine _ !.
- 
-Units
-	= Unit|.., NewLine|
+start
+	= header:header NL section:section+ footer:footer? EOF {return {header, section, footer}}
     
-Unit
-	= u:UnitLine NewLine mw:ModelsOrWeapons { return {unit: u, mw: mw}; }
-   
-ModelsOrWeapons "models or unit weapons"
-	= Models / UnitWeapons
-    
-UnitLine
-	= name:UnitName points:UnitPoints { return {name: name, points: points}; }
-    
-UnitName
-	= [ A-z0-9]+ { return text().trim(); }
-    
-UnitPoints
-	= [(]v:UnitPointValue _ ("Points"/"points")[)] { return v; }
-    
-UnitPointValue
-	= [0-9]+ { return parseInt(text(), 10); }
-    
-Models "models"
-    = Model|.., NewLine|
-    
-Model "model"
-	= _4 m:ModelLine NewLine w:ModelWeapons { return {model: m, weapons: w};}
-    
-ModelLine "model line"
-	= modelCount:ModelCount [x] _ modelName:ModelName { return {count: modelCount, name: modelName}; }
-    
-ModelName
-	= [ A-z0-9]+ { return text().trim(); }
+header = 
+	list_name:([a-zA-Z0-9-() ]+) NL faction_name:([a-zA-Z0-9- ]+) NL detachments_name:([a-zA-Z0-9- ]+) NL battle_size:([a-zA-Z ]+) _ [(] points:([0-9]+) _ "Points)" {
+    	return {
+        	list_name: list_name.join("").trim(),
+            faction_name: faction_name.join("").trim(),
+            detachments_name: detachments_name.join("").trim(),
+            battle_size: battle_size.join("").trim(),
+            points: parseInt(points.join(""))
+        }
+    }
 
-ModelCount
-	= [0-9] { return parseInt(text(), 10); }
-    
-UnitWeapons "unit weapons"
-	= UnitWeapon|.., NewLine|
-    
-UnitWeapon "unit weapon"
-	= _4 w:WeaponLine { return w }
-    
-ModelWeapons "model weapons"
-	= ModelWeapon|.., NewLine|
-    
-ModelWeapon "model weapon"
-	= _6 w:WeaponLine { return w }
-    
-WeaponLine "model weapon line"
-	= weaponCount:WeaponCount [x] _ weaponName:WeaponName { return {name: weaponName, count: weaponCount}; }
-    
-WeaponCount "weapon count"
-	= [0-9] { return parseInt(text(), 10); }
-    
-WeaponName "weapon name"
-	= [ A-z0-9]+ { return text().trim(); }
+section 
+   = category:("CHARACTERS" / "BATTLELINE" / "DEDICATED TRANSPORTS" / "OTHER DATASHEETS" / "ALLIED UNITS") NL units:unit+  {
+   	return {category: category, units: units}
+   }
 
-NewLine
-	= [\n\r]+
+unit
+  = unit:unit_name NL subitems:subunit_list? {
+      return { unit, subitems: subitems || [] };
+    }
 
-_4 "4 whitespace"
-	= [ •◦]|4|
+unit_name
+  = name:[a-zA-Z0-9- ]+ _ "(" _ points:[0-9]+ " Points)" _ {
+      return { name: name.join("").trim(), points: parseInt(points.join("")) };
+    }
+
+subunit_list
+  = subunit+
+
+subunit
+  = _ "•" _ qty:[0-9]* ("x ")? enhancements:("Enhancements:")? name:[a-zA-Z0-9-: ]+ NL subitems:subitem_list? NL? { 
+  	  if(name.join("").trim() === "Warlord"){
+      	return { type: "warlord" };
+      }
+  
+  	  if(enhancements){
+      	return { name: name.join("").trim(), type: "enhancements" };
+      }
+      
+      const parsedQty = parseInt(qty.join(""));
+  
+      if(!subitems){
+      	return { quantity: parsedQty, name: name.join("").trim(), type: "unit_item" };
+      }
+
+	  return { quantity: parsedQty, name: name.join("").trim(), type: "model", subitems: subitems};
+      
+    }
+
+subitem_list
+  = subitem+
+
+subitem
+  = _ "◦" _ qty:[0-9]+ "x " name:[a-zA-Z0-9 ]+ NL {
+      return { quantity: parseInt(qty.join("")), name: name.join("").trim() };
+    }
     
-_6 "6 whitespace"
-	= [ •◦]|6..7|
+footer
+	= "Exported with App Version: v" app_version:([0-9.() ]+)", Data Version: v" data_version:([0-9.]+) NL? { 
+    return { full: text().trim(), app_version: app_version.join("").trim(), data_version: data_version.join("").trim() } 
+  }
 
-_ "whitespace"
-  = [ •◦]*
+_  = [ \t]*  // match any whitespace characters (spaces or tabs)
+NL = [\n\r]+  // match newlines (either '\n' or '\r\n')
+EOF = !.  // match end of input (anything that isn't matched, i.e., end of input)
