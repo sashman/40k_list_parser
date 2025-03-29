@@ -6,13 +6,12 @@
     "typescript"
   ],
   "author": {
-    "name": "Chris Wells",
-    "url": "https://chriswells.io"
+    "name": "sashman"
   },
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chriswells0/node-typescript-template.git"
+    "url": "git@github.com:sashman/40k_list_parser.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
