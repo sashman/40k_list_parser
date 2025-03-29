@@ -1,12 +1,5 @@
 # 40k List Parser
 
-[![Package Version][package-image]][package-url]
-[![Dependencies Status][dependencies-image]][dependencies-url]
-[![Build Status][build-image]][build-url]
-[![Coverage Status][coverage-image]][coverage-url]
-[![Open Issues][issues-image]][issues-url]
-[![Commitizen Friendly][commitizen-image]][commitizen-url]
-
 ## Usage
 
 ```
