@@ -2,149 +2,285 @@
 
 import { expect } from 'chai';
 import { ListParser } from '../src/index';
+import * as fs from 'fs';
+import chai from 'chai';
+import chaiDeepEqualInAnyOrder from 'deep-equal-in-any-order';
+import { Warhammer40kList } from '../src/list';
 
-const testList = `
-Folger Other Clone (2000 Points)
 
-Adeptus Custodes
-Solar Spearhead
-Strike Force (2000 Points)
-
-CHARACTERS
-
-Blade Champion (145 Points)
-  • 1x Vaultswords
-  • Enhancements: Adamantine Talisman
-
-Telemon Heavy Dreadnought (260 Points)
-  • Warlord
-  • Solar Spearhead Keywords: Character
-  • 1x Arachnus storm cannon
-  • 1x Armoured feet
-  • 1x Spiculus bolt launcher
-  • 1x Telemon caestus
-  • 1x Twin plasma projector
-  • Enhancements: Augury Uplink
-
-OTHER DATASHEETS
-
-Caladius Grav-tank (215 Points)
-  • 1x Armoured hull
-  • 1x Twin arachnus heavy blaze cannon
-  • 1x Twin lastrum bolt cannon
-
-Caladius Grav-tank (215 Points)
-  • 1x Armoured hull
-  • 1x Twin arachnus heavy blaze cannon
-  • 1x Twin lastrum bolt cannon
-
-Custodian Wardens (210 Points)
-  • 4x Custodian Warden
-     ◦ 4x Guardian spear
-     ◦ 1x Vexilla
-
-Prosecutors (40 Points)
-  • 1x Prosecutor Sister Superior
-     ◦ 1x Boltgun
-     ◦ 1x Close combat weapon
-  • 3x Prosecutor
-     ◦ 3x Boltgun
-     ◦ 3x Close combat weapon
-
-Prosecutors (40 Points)
-  • 1x Prosecutor Sister Superior
-     ◦ 1x Boltgun
-     ◦ 1x Close combat weapon
-  • 3x Prosecutor
-     ◦ 3x Boltgun
-     ◦ 3x Close combat weapon
-
-Prosecutors (40 Points)
-  • 1x Prosecutor Sister Superior
-     ◦ 1x Boltgun
-     ◦ 1x Close combat weapon
-  • 3x Prosecutor
-     ◦ 3x Boltgun
-     ◦ 3x Close combat weapon
-
-Telemon Heavy Dreadnought (225 Points)
-  • 1x Arachnus storm cannon
-  • 1x Armoured feet
-  • 1x Spiculus bolt launcher
-  • 1x Telemon caestus
-  • 1x Twin plasma projector
-
-Venerable Contemptor Dreadnought (170 Points)
-  • 1x Combi-bolter
-  • 1x Contemptor combat weapon
-  • 1x Multi-melta
-
-Venerable Contemptor Dreadnought (170 Points)
-  • 1x Combi-bolter
-  • 1x Contemptor combat weapon
-  • 1x Multi-melta
-
-Venerable Contemptor Dreadnought (170 Points)
-  • 1x Combi-bolter
-  • 1x Contemptor combat weapon
-  • 1x Multi-melta
-
-ALLIED UNITS
-
-Callidus Assassin (100 Points)
-  • 1x Neural shredder
-  • 1x Phase sword and poison blades
-
-Exported with App Version: v1.29.0 (2), Data Version: v579
-`;
+chai.use(chaiDeepEqualInAnyOrder);
 
 describe('Basic list parsing', () => {
-
-	it('parse a valid list', () => {
+	it('parses gw_app_custodes_2000.txt', () => {
+		const testList = fs.readFileSync(
+			'test/example_lists/gw_app_custodes_2000.txt',
+			'utf8'
+		);
 
 		const list = new ListParser();
 		const parsedList = list.parse(testList);
-		expect(parsedList.name).to.equal('Folger Other Clone', 'List name');
-		expect(parsedList.faction).to.equal('Adeptus Custodes', 'Faction');
-		expect(parsedList.detachment.name).to.equal('Solar Spearhead', 'Detachment');
-		expect(parsedList.points).to.equal(2000, 'Points');
-		expect(parsedList.battleSize).to.equal('Strike Force', 'Battle size');
 
-		expect(parsedList.units[0].name).to.equal('Blade Champion', 'Unit name');
-		expect(parsedList.units[0].points).to.equal(145, 'Unit points');
-		expect(parsedList.units[0].category).to.equal('CHARACTERS', 'Unit category');
-		expect(parsedList.units[0].models[0].name).to.equal('Blade Champion', 'Model name');
-		expect(parsedList.units[0].models[0].count).to.equal(1, 'Model count');
-		expect(parsedList.units[0].models[0].weapons[0].name).to.equal('Vaultswords', 'Weapon');
-		expect(parsedList.units[0].models[0].weapons[0].count).to.equal(1, 'Weapon count');
-		expect(parsedList.units[0].models[0].enhancements[0]).to.equal('Adamantine Talisman', 'Enhancement');
-
-		expect(parsedList.units[1].name).to.equal('Telemon Heavy Dreadnought', 'Unit name');
-		expect(parsedList.units[1].points).to.equal(260, 'Unit points');
-		expect(parsedList.units[1].category).to.equal('CHARACTERS', 'Unit category');
-		expect(parsedList.units[1].models[0].name).to.equal('Telemon Heavy Dreadnought', 'Model name');
-		expect(parsedList.units[1].models[0].count).to.equal(1, 'Model count');
-		expect(parsedList.units[1].models[0].weapons[0].name).to.equal('Arachnus storm cannon', 'Weapon');
-		expect(parsedList.units[1].models[0].weapons[0].count).to.equal(1, 'Weapon count');
-		expect(parsedList.units[1].models[0].weapons[1].name).to.equal('Armoured feet', 'Weapon');
-		expect(parsedList.units[1].models[0].weapons[1].count).to.equal(1, 'Weapon count');
-		expect(parsedList.units[1].models[0].weapons[2].name).to.equal('Spiculus bolt launcher', 'Weapon');
-		expect(parsedList.units[1].models[0].weapons[2].count).to.equal(1, 'Weapon count');
-		expect(parsedList.units[1].models[0].weapons[3].name).to.equal('Telemon caestus', 'Weapon');
-		expect(parsedList.units[1].models[0].weapons[3].count).to.equal(1, 'Weapon count');
-		expect(parsedList.units[1].models[0].weapons[4].name).to.equal('Twin plasma projector', 'Weapon');
-		expect(parsedList.units[1].models[0].weapons[4].count).to.equal(1, 'Weapon count');
-		expect(parsedList.units[1].models[0].enhancements[0]).to.equal('Augury Uplink', 'Enhancement');
-		expect(parsedList.units[1].models[0].warlord).to.equal(true, 'Warlord');
-
-
-		expect(parsedList.units[4].name).to.equal('Custodian Wardens', 'Unit name');
-		expect(parsedList.units[4].points).to.equal(210, 'Unit points');
-		expect(parsedList.units[4].category).to.equal('OTHER DATASHEETS', 'Unit category');
-		expect(parsedList.units[4].models[0].name).to.equal('Custodian Warden', 'Model name');
-		expect(parsedList.units[4].models[0].count).to.equal(4, 'Model count');
-		expect(parsedList.units[4].models[0].weapons[0].name).to.equal('Guardian spear', 'Weapon');
-		expect(parsedList.units[4].models[0].weapons[0].count).to.equal(4, 'Weapon count');
+		expect(parsedList).to.deep.equalInAnyOrder({
+			name: 'Folger Other Clone',
+			points: 2000,
+			battleSize: 'Strike Force',
+			battleSizePoints: 2000,
+			faction: 'Adeptus Custodes',
+			detachment: { name: 'Solar Spearhead' },
+			units: [
+				{
+					name: 'Blade Champion',
+					points: 145,
+					category: 'CHARACTERS',
+					models: [
+						{
+							name: 'Blade Champion',
+							count: 1,
+							weapons: [{ name: 'Vaultswords', count: 1 }],
+							enhancements: ['Adamantine Talisman'],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Telemon Heavy Dreadnought',
+					points: 260,
+					category: 'CHARACTERS',
+					models: [
+						{
+							name: 'Telemon Heavy Dreadnought',
+							count: 1,
+							weapons: [
+								{ name: 'Arachnus storm cannon', count: 1 },
+								{ name: 'Armoured feet', count: 1 },
+								{ name: 'Spiculus bolt launcher', count: 1 },
+								{ name: 'Telemon caestus', count: 1 },
+								{ name: 'Twin plasma projector', count: 1 },
+							],
+							enhancements: ['Augury Uplink'],
+							warlord: true,
+						},
+					],
+				},
+				{
+					name: 'Caladius Grav-tank',
+					points: 215,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Caladius Grav-tank',
+							count: 1,
+							weapons: [
+								{ name: 'Armoured hull', count: 1 },
+								{ name: 'Twin arachnus heavy blaze cannon', count: 1 },
+								{ name: 'Twin lastrum bolt cannon', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Caladius Grav-tank',
+					points: 215,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Caladius Grav-tank',
+							count: 1,
+							weapons: [
+								{ name: 'Armoured hull', count: 1 },
+								{ name: 'Twin arachnus heavy blaze cannon', count: 1 },
+								{ name: 'Twin lastrum bolt cannon', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Custodian Wardens',
+					points: 210,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Custodian Warden',
+							count: 4,
+							weapons: [
+								{ name: 'Guardian spear', count: 4 },
+								{ name: 'Vexilla', count: 1 },
+							],
+						},
+					],
+				},
+				{
+					name: 'Prosecutors',
+					points: 40,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Prosecutor Sister Superior',
+							count: 1,
+							weapons: [
+								{ name: 'Boltgun', count: 1 },
+								{ name: 'Close combat weapon', count: 1 },
+							],
+						},
+						{
+							name: 'Prosecutor',
+							count: 3,
+							weapons: [
+								{ name: 'Boltgun', count: 3 },
+								{ name: 'Close combat weapon', count: 3 },
+							],
+						},
+					],
+				},
+				{
+					name: 'Prosecutors',
+					points: 40,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Prosecutor Sister Superior',
+							count: 1,
+							weapons: [
+								{ name: 'Boltgun', count: 1 },
+								{ name: 'Close combat weapon', count: 1 },
+							],
+						},
+						{
+							name: 'Prosecutor',
+							count: 3,
+							weapons: [
+								{ name: 'Boltgun', count: 3 },
+								{ name: 'Close combat weapon', count: 3 },
+							],
+						},
+					],
+				},
+				{
+					name: 'Prosecutors',
+					points: 40,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Prosecutor Sister Superior',
+							count: 1,
+							weapons: [
+								{ name: 'Boltgun', count: 1 },
+								{ name: 'Close combat weapon', count: 1 },
+							],
+						},
+						{
+							name: 'Prosecutor',
+							count: 3,
+							weapons: [
+								{ name: 'Boltgun', count: 3 },
+								{ name: 'Close combat weapon', count: 3 },
+							],
+						},
+					],
+				},
+				{
+					name: 'Telemon Heavy Dreadnought',
+					points: 225,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Telemon Heavy Dreadnought',
+							count: 1,
+							weapons: [
+								{ name: 'Arachnus storm cannon', count: 1 },
+								{ name: 'Armoured feet', count: 1 },
+								{ name: 'Spiculus bolt launcher', count: 1 },
+								{ name: 'Telemon caestus', count: 1 },
+								{ name: 'Twin plasma projector', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Venerable Contemptor Dreadnought',
+					points: 170,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Venerable Contemptor Dreadnought',
+							count: 1,
+							weapons: [
+								{ name: 'Combi-bolter', count: 1 },
+								{ name: 'Contemptor combat weapon', count: 1 },
+								{ name: 'Multi-melta', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Venerable Contemptor Dreadnought',
+					points: 170,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Venerable Contemptor Dreadnought',
+							count: 1,
+							weapons: [
+								{ name: 'Combi-bolter', count: 1 },
+								{ name: 'Contemptor combat weapon', count: 1 },
+								{ name: 'Multi-melta', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Venerable Contemptor Dreadnought',
+					points: 170,
+					category: 'OTHER DATASHEETS',
+					models: [
+						{
+							name: 'Venerable Contemptor Dreadnought',
+							count: 1,
+							weapons: [
+								{ name: 'Combi-bolter', count: 1 },
+								{ name: 'Contemptor combat weapon', count: 1 },
+								{ name: 'Multi-melta', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+				{
+					name: 'Callidus Assassin',
+					points: 100,
+					category: 'ALLIED UNITS',
+					models: [
+						{
+							name: 'Callidus Assassin',
+							count: 1,
+							weapons: [
+								{ name: 'Neural shredder', count: 1 },
+								{ name: 'Phase sword and poison blades', count: 1 },
+							],
+							enhancements: [],
+							warlord: false,
+						},
+					],
+				},
+			],
+			meta: {
+				footer: {
+					full: 'Exported with App Version: v1.29.0 (2), Data Version: v579',
+					app_version: '1.29.0 (2)',
+					data_version: '579',
+				},
+			},
+		} as Warhammer40kList);
 	});
-
 });

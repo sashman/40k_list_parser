@@ -1,0 +1,92 @@
+Folger Other Clone (2000 Points)
+
+Adeptus Custodes
+Solar Spearhead
+Strike Force (2000 Points)
+
+CHARACTERS
+
+Blade Champion (145 Points)
+  • 1x Vaultswords
+  • Enhancements: Adamantine Talisman
+
+Telemon Heavy Dreadnought (260 Points)
+  • Warlord
+  • Solar Spearhead Keywords: Character
+  • 1x Arachnus storm cannon
+  • 1x Armoured feet
+  • 1x Spiculus bolt launcher
+  • 1x Telemon caestus
+  • 1x Twin plasma projector
+  • Enhancements: Augury Uplink
+
+OTHER DATASHEETS
+
+Caladius Grav-tank (215 Points)
+  • 1x Armoured hull
+  • 1x Twin arachnus heavy blaze cannon
+  • 1x Twin lastrum bolt cannon
+
+Caladius Grav-tank (215 Points)
+  • 1x Armoured hull
+  • 1x Twin arachnus heavy blaze cannon
+  • 1x Twin lastrum bolt cannon
+
+Custodian Wardens (210 Points)
+  • 4x Custodian Warden
+     ◦ 4x Guardian spear
+     ◦ 1x Vexilla
+
+Prosecutors (40 Points)
+  • 1x Prosecutor Sister Superior
+     ◦ 1x Boltgun
+     ◦ 1x Close combat weapon
+  • 3x Prosecutor
+     ◦ 3x Boltgun
+     ◦ 3x Close combat weapon
+
+Prosecutors (40 Points)
+  • 1x Prosecutor Sister Superior
+     ◦ 1x Boltgun
+     ◦ 1x Close combat weapon
+  • 3x Prosecutor
+     ◦ 3x Boltgun
+     ◦ 3x Close combat weapon
+
+Prosecutors (40 Points)
+  • 1x Prosecutor Sister Superior
+     ◦ 1x Boltgun
+     ◦ 1x Close combat weapon
+  • 3x Prosecutor
+     ◦ 3x Boltgun
+     ◦ 3x Close combat weapon
+
+Telemon Heavy Dreadnought (225 Points)
+  • 1x Arachnus storm cannon
+  • 1x Armoured feet
+  • 1x Spiculus bolt launcher
+  • 1x Telemon caestus
+  • 1x Twin plasma projector
+
+Venerable Contemptor Dreadnought (170 Points)
+  • 1x Combi-bolter
+  • 1x Contemptor combat weapon
+  • 1x Multi-melta
+
+Venerable Contemptor Dreadnought (170 Points)
+  • 1x Combi-bolter
+  • 1x Contemptor combat weapon
+  • 1x Multi-melta
+
+Venerable Contemptor Dreadnought (170 Points)
+  • 1x Combi-bolter
+  • 1x Contemptor combat weapon
+  • 1x Multi-melta
+
+ALLIED UNITS
+
+Callidus Assassin (100 Points)
+  • 1x Neural shredder
+  • 1x Phase sword and poison blades
+
+Exported with App Version: v1.29.0 (2), Data Version: v579
