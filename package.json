@@ -62,7 +62,7 @@
     "@types/deep-equal-in-any-order": "^1.0.4",
     "copyfiles": "^2.4.1",
     "deep-equal-in-any-order": "^2.0.6",
-    "peggy": "^4.2.0",
+    "peggy": "^5.0.4",
     "sitka": "^1.1.1"
   }
 }
